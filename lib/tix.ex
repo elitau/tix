@@ -3,16 +3,13 @@ defmodule Tix do
   Documentation for Tix.
   """
 
-  @doc """
-  Hello world.
+  def start do
+    Code.compiler_options(ignore_module_conflict: true)
+    Tix.Supervisor.start_link()
+  end
 
-  ## Examples
-
-      iex> Tix.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def run do
+    # changed_file |> select_tests() |> execute_tests()
+    # manually_chosen_test |> execute_tests()
   end
 end
