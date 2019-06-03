@@ -1,0 +1,3 @@
+%{
+  "test_iex": {:hex, :test_iex, "0.1.0", "37a0c0ac9c7a9d3d29195923722f3f8690513fe9c78d24b62f78e4960c5cc3f1", [:mix], [], "hexpm"},
+}
