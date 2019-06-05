@@ -28,7 +28,7 @@ The package can be installed by adding `tix` to your list of dependencies in `mi
 ```elixir
 def deps do
   [
-    {:tix, "~> 0.1.0"}
+    {:tix, "~> 0.2.0"}
   ]
 end
 ```
