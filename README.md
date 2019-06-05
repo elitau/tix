@@ -1,6 +1,6 @@
 # Tix
 
-Automatically re-run tests in the iex console when files change.
+Automatically re-run tests in Elixir's iex console when files are saved. It's like [mix test.watch](https://github.com/lpil/mix-test.watch) but without the reboot.
 
 ## Usage
 
