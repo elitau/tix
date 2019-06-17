@@ -41,7 +41,7 @@ be found at [https://hexdocs.pm/tix](https://hexdocs.pm/tix).
 
 * Tests are randomized with the same seed.
 * pry session kills itself (after a timeout) and testix with it
-* Tags like `@tag :skip` are not considered
+* Tags like `@tag :skip` are considered, but not custom ones that are often defined in test_helper.ex
 
 ## (Planned) features
 
