@@ -14,8 +14,11 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install Dependencies
       run: |
-        wget https://github.com/hawk/lux/releases/download/lux-2.1/lux_2.1-1.deb
-        sudo dpkg -i lux_2.1-1.deb
-        lux -h
+        git clone https://github.com/hawk/lux.git
+        cd lux
+        autoconf
+        ./configure
+        make
+        cd ..
     - name: Run Tests
-      run: lux integration_test/integration_test.lux
+      run: lux/bin/lux integration_test/integration_test.lux
