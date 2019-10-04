@@ -1,0 +1,21 @@
+name: Integration Test
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: elixir:1.9.1-slim
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Dependencies
+      run: |
+        wget https://github.com/hawk/lux/releases/download/lux-2.1/lux_2.1-1.deb
+        sudo dpkg -i lux_2.1-1.deb
+        lux -h
+    - name: Run Tests
+      run: lux integration_test/integration_test.lux
