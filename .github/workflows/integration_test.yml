@@ -21,8 +21,11 @@ jobs:
         make
         cd ..
     - name: Install Linux filesystem watcher depdency
-      run: apt-get install inotify-tools
-    - name: Install example app deps
-      run: MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get
+      run: sudo apt-get install inotify-tools
+    # - name: Install example app deps
+    #   run: |
+    #     cd integration_test/example_app
+    #     MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get
+    #     cd ../..
     - name: Run Tests
       run: lux/bin/lux -v --timeout=20000 integration_test/integration_test.lux
