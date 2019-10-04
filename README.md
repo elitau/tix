@@ -49,3 +49,7 @@ be found at [https://hexdocs.pm/tix](https://hexdocs.pm/tix).
 * Run all tests
 * Set debug breakpoints from within vs-code
 * Run only one explicit test on file save
+
+## Development
+
+Run tests with lux. See integration_test folder.
