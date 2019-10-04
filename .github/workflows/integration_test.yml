@@ -23,7 +23,7 @@ jobs:
     - name: Install Linux filesystem watcher depdency
       run: |
         apt-get update
-        apt-get install inotify-tools
+        apt-get install -y inotify-tools
     # - name: Install example app deps
     #   run: |
     #     cd integration_test/example_app
