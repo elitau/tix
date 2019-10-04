@@ -21,4 +21,4 @@ jobs:
         make
         cd ..
     - name: Run Tests
-      run: lux/bin/lux -v integration_test/integration_test.lux
+      run: lux/bin/lux -v --timeout=20000 integration_test/integration_test.lux
