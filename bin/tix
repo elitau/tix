@@ -1,0 +1,19 @@
+#!/bin/sh
+# This is a copy of the bin/iex script bundled with elixir
+set -i
+
+readlink_f () {
+  cd "$(dirname "$1")" > /dev/null
+  filename="$(basename "$1")"
+  if [ -h "$filename" ]; then
+    readlink_f "$(readlink "$filename")"
+  else
+    echo "$(pwd -P)/$filename"
+  fi
+}
+
+SELF=$(readlink_f "$0")
+SCRIPT_PATH=$(dirname "$SELF")
+TIX_LIB_PATH="$SCRIPT_PATH/../lib"
+echo $TIX_LIB_PATH
+iex -S "$SCRIPT_PATH"/tix_cli

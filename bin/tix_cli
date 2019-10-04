@@ -1,0 +1,4 @@
+#!/usr/bin/env elixir
+# This is a copy of the mix executable: https://github.com/elixir-lang/elixir/blob/master/bin/mix
+Mix.start
+Mix.CLI.main

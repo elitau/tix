@@ -4,7 +4,16 @@ Automatically re-run tests in Elixir's iex console when files are saved. It's li
 
 ## Usage
 
+### Start a tix shell with the bundled mix task
+
 Start an iex shell in test env with `MIX_ENV=test iex -S mix` and run `Tix.start()`.
+
+!!! WIP !!!
+### Start a tix shell with a globally installed executable
+
+Just type `tix` in your shell.
+
+!!! WIP !!!
 
 Tix recompiles and executes tests automatically. Only relevant modules (see mix xref and mix test --stale) are recompiled.
 The following algorithm is used to choose which test will be executed:
