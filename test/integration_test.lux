@@ -14,7 +14,7 @@
 # Start a tix shell
 [shell tix]
     !cd example_app
-    !MIX_ENV=test iex -S mix tix
+    !MIX_ENV=test iex -S mix do deps.compile tix, tix
     ?Tix is watching your files
 
 # Act like a developer inside an editor
