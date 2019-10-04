@@ -14,7 +14,7 @@
 # Start a tix shell
 [shell tix]
     !cd example_app
-    !MIX_ENV=test iex -S mix do local.hex --force, deps.get, deps.compile tix, tix
+    !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
     ?Tix is watching your files
 
 # Act like a developer inside an editor
