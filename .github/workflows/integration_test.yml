@@ -27,6 +27,7 @@ jobs:
     #     cd integration_test/example_app
     #     MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get
     #     cd ../..
-    - name: Run Tests
+    - name: Get Elixir
       uses: docker://elixir:1.9.1
+    - name: Run Tests
       run: lux/bin/lux -v --timeout=20000 integration_test/integration_test.lux
