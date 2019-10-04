@@ -30,4 +30,4 @@ jobs:
     #     MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get
     #     cd ../..
     - name: Run Tests
-      run: lux/bin/lux -v --timeout=20000 integration_test/integration_test.lux
+      run: lux/bin/lux integration_test/integration_test.lux
