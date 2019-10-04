@@ -21,6 +21,17 @@ Sometimes it's useful to focus on a single test and exclude other tests from bei
 Use `Tix.pin({"path/to/some_test.exs", 23})` so that only this one test will be executed upon save of any file in the project.
 Use `Tix.unpin` to restore the above selection algorithm.
 
+### Other option to pin a test
+
+Desclare the to-be-focused test with `focus` instead of `test`, eg.
+
+```elixir
+  use ExUnit.Case, async: true
+  focus "this is a test description" do
+    assert false
+  end
+```
+
 ## Installation
 
 The package can be installed by adding `tix` to your list of dependencies in `mix.exs`:
