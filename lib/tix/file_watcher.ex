@@ -20,6 +20,7 @@ defmodule Tix.FileWatcher do
   def init(_) do
     :erlang.send_after(1000, self(), :handle_file_changes)
     :ok = :fs.subscribe()
+    IO.puts("Tix is watching your files at #{:fs.path()}")
     TestIex.start_testing()
     {:ok, %__MODULE__{}}
   end
