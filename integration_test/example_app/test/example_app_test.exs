@@ -1,6 +1,6 @@
 defmodule ExampleAppTest do
   use ExUnit.Case
-  doctest ExampleApp
+  # doctest ExampleApp
 
   test "greets the world" do
     assert ExampleApp.hello() == :world
