@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Install Dependencies
+    - name: Install Lux Testing Tool
       run: |
         git clone https://github.com/hawk/lux.git
         cd lux
@@ -21,4 +21,4 @@ jobs:
         make
         cd ..
     - name: Run Tests
-      run: lux/bin/lux integration_test/integration_test.lux
+      run: lux/bin/lux -v integration_test/integration_test.lux
