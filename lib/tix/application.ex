@@ -10,11 +10,12 @@ defmodule Tix.Application do
     children = [
       # Starts a worker by calling: Tix.Worker.start_link(arg)
       # {Tix.Worker, arg}
+      Tix.Supervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Tix.Supervisor]
+    opts = [strategy: :one_for_one, name: Tix.AppSupervisor]
     Supervisor.start_link(children, opts)
   end
 end
