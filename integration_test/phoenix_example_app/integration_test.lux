@@ -17,14 +17,14 @@
 
 [shell editor]
     # Simulate a file save
-    !touch lib/phoenix_example_app.ex
+    !touch test/phoenix_example_app_web/controllers/page_controller_test.exs
     # Assure that were back to shell prompt
     ?SH-PROMPT:
 
 [shell tix]
     # Assert that the test was executed
     ?Executing
-    ?phoenix_example_app_test\.exs
+    ?page_controller_test.exs
 
 # Cleanup side effects. The cleanup section is always executed,
 # regardless of the script succeeds or fails
