@@ -11,24 +11,50 @@
 ## Execute the test with `bin/lux test/integration_test.lux`
 
 
+#### Simple elixir project ####
+
 # Start a tix shell
-[shell tix]
-    !cd example_app
+[shell tix_simple_example_app]
+    !cd simple_example_app
     !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
     ?Tix is watching your files
 
 # Act like a developer inside an editor
-[shell editor]
+[shell editor_simple_example_app]
     # Simulate a file save
-    !touch example_app/lib/example_app.ex
+    !touch simple_example_app/lib/simple_example_app.ex
     # Assure that were back to shell prompt
     ?SH-PROMPT:
 
 # Switch back to the tix shell
-[shell tix]
+[shell tix_simple_example_app]
     # Assert that the test was executed
     ?Executing
-    ?example_app_test\.exs
+    ?simple_example_app_test\.exs
+
+
+#### Phoenix Project ####
+[shell tix_phoenix_example_app]
+    !cd phoenix_example_app
+    !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
+    ?Tix is watching your files
+
+[shell editor_phoenix_example_app]
+    # Simulate a file save
+    !touch phoenix_example_app/lib/phoenix_example_app.ex
+    # Assure that were back to shell prompt
+    ?SH-PROMPT:
+
+[shell tix_phoenix_example_app]
+    # Assert that the test was executed
+    ?Executing
+    ?phoenix_example_app_test\.exs
+
+
+
+
+
+
 
 # Cleanup side effects. The cleanup section is always executed,
 # regardless of the script succeeds or fails
