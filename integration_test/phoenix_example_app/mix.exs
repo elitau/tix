@@ -43,7 +43,7 @@ defmodule PhoenixExampleApp.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:tix, path: "../../"}
+      {:tix, path: "../../", only: :test, runtime: false}
     ]
   end
 

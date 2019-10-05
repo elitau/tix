@@ -8,6 +8,10 @@ defmodule Tix do
     Tix.Supervisor.start_link()
   end
 
+  def running? do
+    Process.whereis(Tix.Supervisor)
+  end
+
   def run do
     # changed_file |> select_tests() |> execute_tests()
     # manually_chosen_test |> execute_tests()

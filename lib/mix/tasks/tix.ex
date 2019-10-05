@@ -13,5 +13,6 @@ defmodule Mix.Tasks.Tix do
   def run(_argv) do
     Mix.Task.run("app.start", [])
     # Tix.start()
+    Application.ensure_all_started(:tix, :permanent)
   end
 end
