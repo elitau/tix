@@ -1,0 +1,41 @@
+[doc Start a tix session and execute a test by saving a file]
+
+# Installation
+## This is a lux test: https://github.com/hawk/lux
+## Install with asdf: https://github.com/hawk/lux/blob/master/doc/lux.md#../INSTALL
+
+## Or, in case of Error "This BEAM file was compiled for a later version of the run-time system than 21."
+## install by compiling it
+
+# Run the test
+## Execute the test with `bin/lux test/integration_test.lux`
+
+
+#### Simple elixir project ####
+
+# Start a tix shell
+[shell tix]
+    !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
+    ?Tix is watching your files
+
+# Act like a developer inside an editor
+[shell editor]
+    # Simulate a file save
+    !touch lib/simple_example_app.ex
+    # Assure that were back to shell prompt
+    ?SH-PROMPT:
+
+# Switch back to the tix shell
+[shell tix]
+    # Assert that the test was executed
+    ?Executing
+    ?simple_example_app_test\.exs
+
+# Cleanup side effects. The cleanup section is always executed,
+# regardless of the script succeeds or fails
+[cleanup]
+    # Match command exit status. Observe the double dollar sign which
+    # escapes the dollar sign, implying "echo ==$$?==" to be sent to
+    # the shell.
+    !echo ==$$?==
+    ?^==0==

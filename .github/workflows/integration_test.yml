@@ -33,4 +33,4 @@ jobs:
         MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, compile
         cd ../..
     - name: Run Tests
-      run: lux/bin/lux integration_test/integration_test.lux
+      run: lux/bin/lux -v integration_test/simple_example_app/integration_test.lux integration_test/phoenix_example_app/integration_test.lux
