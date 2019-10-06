@@ -39,7 +39,7 @@ jobs:
         # Install Google's public key used for signing packages (e.g. Chrome)
         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
         # Update apt sources
-        sudo apt-get update
+        apt-get update
         echo "##### Installing Headless Chrome dependencies..."
         apt-get install -y libxpm4 libxrender1 libgtk2.0-0 libnss3 libgconf-2-4
         apt-get install -y google-chrome-stable
