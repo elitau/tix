@@ -12,7 +12,7 @@ config :wallaby_example_app, WallabyExampleApp.Repo,
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :wallaby_example_app, WallabyExampleAppWeb.Endpoint,
-  http: [port: 4002],
+  http: [port: Enum.random(4000..4999)],
   server: true
 
 config :wallaby, driver: Wallaby.Experimental.Chrome
