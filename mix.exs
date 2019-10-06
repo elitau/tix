@@ -4,7 +4,7 @@ defmodule Tix.MixProject do
   def project do
     [
       app: :tix,
-      version: "0.2.0",
+      version: "0.3.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -43,7 +43,7 @@ defmodule Tix.MixProject do
       maintainers: ["Eduard Litau"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/elitau/tix"},
-      files: ~w(LICENCE README.md lib mix.exs dot.iex run_iex.sh)
+      files: ~w(LICENCE README.md lib mix.exs)
     ]
   end
 end
