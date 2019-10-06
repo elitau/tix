@@ -32,6 +32,26 @@ jobs:
         ./configure
         make
         cd ..
+    - name: Install Chromedriver
+      run: |
+        echo "##### Add Google Chrome's repo to sources..."
+        echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list
+        # Install Google's public key used for signing packages (e.g. Chrome)
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+        # Update apt sources
+        sudo apt-get update
+        echo "##### Installing Headless Chrome dependencies..."
+        apt-get install -y libxpm4 libxrender1 libgtk2.0-0 libnss3 libgconf-2-4
+        apt-get install -y google-chrome-stable
+        apt-get install -y xvfb gtk2-engines-pixbuf
+        apt-get install -y xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
+        apt-get install -y imagemagick x11-apps
+
+        echo "##### Downloading latest ChromeDriver..."
+        LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+        wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+        echo "##### Extracting and symlinking chromedriver to PATH so it's available globally"
+        unzip chromedriver_linux64.zip && ln -s $PWD/chromedriver /usr/local/bin/chromedriver
     - name: Install Linux filesystem watcher depdency
       run: |
         apt-get update
