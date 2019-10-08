@@ -3,6 +3,9 @@ defmodule Tix do
   Documentation for Tix.
   """
 
+  @doc """
+  Starts the Tix supervisor that watches the file system and runs the appropriate test(s).
+  """
   def start do
     Code.compiler_options(ignore_module_conflict: true)
     Tix.Supervisor.start_link()
