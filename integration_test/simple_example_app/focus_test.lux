@@ -17,7 +17,6 @@
 [shell tix]
     !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
     ?Tix is watching your files
-    !Tix.pin({"test/focus_unit_test.exs", 5})
 
 # Act like a developer inside an editor
 [shell editor]
@@ -28,8 +27,9 @@
 
 # Switch back to the tix shell
 [shell tix]
-    # Assert that the test was executed
+    # Assert that the focussed test line was executed
     ?Executing test/focus_unit_test.exs:5
+    # The other test in the file should not be executed
     ?^((?!red).)*
 
 # Cleanup side effects. The cleanup section is always executed,
