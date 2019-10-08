@@ -8,6 +8,7 @@ defmodule Tix do
   """
   def start do
     Code.compiler_options(ignore_module_conflict: true)
+    {:ok, _started_apps} = Application.ensure_all_started(:fs, :permanent)
     Tix.Supervisor.start_link()
   end
 

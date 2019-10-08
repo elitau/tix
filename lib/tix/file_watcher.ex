@@ -12,7 +12,6 @@ defmodule Tix.FileWatcher do
   def start_link([]), do: start_link()
 
   def start_link do
-    {:ok, []} = Application.ensure_all_started(:fs, :permanent)
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
