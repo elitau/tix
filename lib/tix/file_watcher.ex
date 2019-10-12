@@ -53,7 +53,7 @@ defmodule Tix.FileWatcher do
         |> execute_tests()
 
       many_files ->
-        debug("Many files changed: #{many_files |> inspect()}. Will NOT execute tests")
+        Tix.debug("Many files changed: #{many_files |> inspect()}. Will NOT execute tests")
     end
 
     :erlang.send_after(500, self(), :handle_file_changes)
@@ -81,14 +81,5 @@ defmodule Tix.FileWatcher do
 
   defp path_match?(path, pattern = %Regex{}) do
     Regex.match?(pattern, path)
-  end
-
-  defp debug(content) when is_binary(content) do
-    :ok = content |> Logger.debug()
-    content
-  end
-
-  defp debug(content) do
-    content |> inspect() |> debug()
   end
 end

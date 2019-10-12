@@ -1,4 +1,6 @@
 defmodule Tix do
+  require Logger
+
   @moduledoc """
   Documentation for Tix.
   """
@@ -33,5 +35,14 @@ defmodule Tix do
   """
   def unpin do
     Tix.PinnedTest.unpin()
+  end
+
+  def debug(content) when is_binary(content) do
+    :ok = content |> Logger.debug()
+    content
+  end
+
+  def debug(content) do
+    content |> inspect() |> debug()
   end
 end
