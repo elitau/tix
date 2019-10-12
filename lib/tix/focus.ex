@@ -1,6 +1,4 @@
 defmodule Tix.Focus do
-  require Logger
-
   def scan_for_focused_test(file_path) do
     scan_for_focused_test(
       file_path,
@@ -12,12 +10,14 @@ defmodule Tix.Focus do
     file_path
   end
 
-  def scan_for_focused_test(_saved_file_path, nil, false, _is_test_file?), do: nil
+  def scan_for_focused_test(_saved_file_path, nil, false, _is_test_file?),
+    do: :nothing_pinned_and_no_comment
 
-  def scan_for_focused_test(_saved_file_path, nil, _file_content, false), do: nil
+  def scan_for_focused_test(_saved_file_path, nil, _file_content, false), do: :not_a_test_file
 
   def scan_for_focused_test(saved_file_path, nil, file_content, true) do
     saved_file_path |> path_to_focus_on(file_content) |> Tix.PinnedTest.pin()
+    Tix.debug("Focus: Pinned #{saved_file_path}")
   end
 
   def scan_for_focused_test(
@@ -27,6 +27,17 @@ defmodule Tix.Focus do
         _is_test_file?
       ) do
     Tix.PinnedTest.unpin()
+    Tix.debug("Unpinned #{saved_file_path}")
+  end
+
+  def scan_for_focused_test(
+        saved_file_path,
+        {saved_file_path, _line_number},
+        _file_content,
+        _is_test_file?
+      ) do
+    Tix.debug("Keep #{saved_file_path} pinned")
+    :test_already_pinned
   end
 
   def scan_for_focused_test(
@@ -35,7 +46,7 @@ defmodule Tix.Focus do
         _file_content,
         _is_test_file?
       ) do
-    Logger.warn(
+    Tix.debug(
       "Found focus in file #{saved_file_path}, but Tix is already focused on #{pinned_test}. Tix did not change the pinned test."
     )
   end
