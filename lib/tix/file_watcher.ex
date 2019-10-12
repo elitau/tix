@@ -46,11 +46,14 @@ defmodule Tix.FileWatcher do
       [] ->
         :noop
 
-      changed_files ->
-        changed_files
-        |> List.flatten()
-        |> Enum.uniq()
+      [file] ->
+        file
+        |> Tix.Focus.scan_for_focused_test()
+        |> Tix.Selector.tests_for_file()
         |> execute_tests()
+
+      many_files ->
+        debug("Many files changed: #{many_files |> inspect()}. Will NOT execute tests")
     end
 
     :erlang.send_after(500, self(), :handle_file_changes)
@@ -68,10 +71,6 @@ defmodule Tix.FileWatcher do
       IEx.Helpers.recompile()
 
       changed_files
-      |> debug()
-      |> Tix.Selector.tests_for_file()
-      |> debug()
-      |> Enum.at(0)
       |> Tix.TestRunner.execute_test()
     rescue
       e ->
@@ -84,8 +83,12 @@ defmodule Tix.FileWatcher do
     Regex.match?(pattern, path)
   end
 
-  defp debug(content) do
-    :ok = content |> inspect() |> Logger.debug()
+  defp debug(content) when is_binary(content) do
+    :ok = content |> Logger.debug()
     content
+  end
+
+  defp debug(content) do
+    content |> inspect() |> debug()
   end
 end

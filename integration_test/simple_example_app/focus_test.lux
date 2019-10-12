@@ -32,6 +32,22 @@
     # The other test in the file should not be executed
     ?^((?!red).)*
 
+# Now save another file.
+[shell editor]
+    # Simulate a file save
+    !touch lib/simple_example_app.ex
+    # Assure that were back to shell prompt
+    ?SH-PROMPT:
+
+# Tix should still execute the focussed test only.
+[shell tix]
+    # Assert that the focussed test line was executed
+    ?Executing test/focus_unit_test.exs:5
+    # The other test in the file should not be executed
+    ?^((?!red).)*
+
+
+
 # Cleanup side effects. The cleanup section is always executed,
 # regardless of the script succeeds or fails
 [cleanup]
