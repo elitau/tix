@@ -5,23 +5,36 @@ defmodule Tix.Focus do
     scan_for_focused_test(
       file_path,
       Tix.PinnedTest.pinned_test(),
-      contains_focus_hint?(file_path)
+      contains_focus_hint?(file_path),
+      file_path |> String.ends_with?("_test.exs")
     )
 
     file_path
   end
 
-  def scan_for_focused_test(_saved_file_path, nil, false), do: nil
+  def scan_for_focused_test(_saved_file_path, nil, false, _is_test_file?), do: nil
 
-  def scan_for_focused_test(saved_file_path, nil, file_content) do
+  def scan_for_focused_test(_saved_file_path, nil, _file_content, false), do: nil
+
+  def scan_for_focused_test(saved_file_path, nil, file_content, true) do
     saved_file_path |> path_to_focus_on(file_content) |> Tix.PinnedTest.pin()
   end
 
-  def scan_for_focused_test(saved_file_path, {saved_file_path, _line_number}, false) do
+  def scan_for_focused_test(
+        saved_file_path,
+        {saved_file_path, _line_number},
+        false,
+        _is_test_file?
+      ) do
     Tix.PinnedTest.unpin()
   end
 
-  def scan_for_focused_test(saved_file_path, {pinned_test, _line_number}, _file_content) do
+  def scan_for_focused_test(
+        saved_file_path,
+        {pinned_test, _line_number},
+        _file_content,
+        _is_test_file?
+      ) do
     Logger.warn(
       "Found focus in file #{saved_file_path}, but Tix is already focused on #{pinned_test}. Tix did not change the pinned test."
     )
