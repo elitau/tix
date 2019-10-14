@@ -9,8 +9,8 @@ Start an iex shell in test env with `MIX_ENV=test iex -S mix` and run `Tix.start
 Tix recompiles and executes tests automatically. Only relevant modules (see mix xref and mix test --stale) are recompiled.
 The following algorithm is used to choose which test will be executed:
 
-1. Pinned test, if present: pin with `Tix.pin({"/path/to/test.exs", 23})` or use `tix:focus` comment (see below) ✅
-2. Saved file is a test file (ending with `_test.exs`). ✅
+1. Pinned test, if present: pin with `Tix.pin({"/path/to/test.exs", 23})` or use `tix:focus` comment (see below)
+2. Saved file is a test file (ending with `_test.exs`).
 3. Saved file has a test sibling (same name as saved file but with `_test.exs`-ending) living in the same folder. ✅
 4. Previously executed test if none of the above matches.
 
@@ -59,13 +59,14 @@ be found at [https://hexdocs.pm/tix](https://hexdocs.pm/tix).
 * Tags like `@tag :skip` are considered, but not custom ones that are often defined in test_helper.ex
 * Only the test helper at test/test_helper.exs is loaded. Other helpers should also be loaded.
   Currently one need to load it by hand with: `TestIex.load_helper("spezifikation/test_helper.exs")`
+* Test is executed twice when the editor automatically runs the formatter (which obviously saves the file a second time)
 
 ## (Planned) features
 
 * Usage like https://github.com/nccgroup/sobelow, eg. `mix tix`
 * Run all tests
 * Set debug breakpoints from within vs-code
-* Run only one explicit test on file save
+* Run only one explicit test on file save (pin test) ✅
 
 ## Development
 
