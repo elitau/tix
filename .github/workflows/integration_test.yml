@@ -1,5 +1,5 @@
 name: Integration Test
-
+# TODO: Use https://www.richardtaylor.dev/articles/elixir-phoenix-release-workflow-github-ci to optimize GithubCI Actions
 on: push
 
 jobs:
