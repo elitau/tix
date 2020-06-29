@@ -34,7 +34,7 @@ defmodule Tix.MixProject do
       {:test_iex, "~> 0.1.0"},
       {:ex_doc, "~> 0.20", only: :dev, runtime: false},
       # Erlang File System Listener
-      {:fs, "~> 0.9"}
+      {:fs, "~> 6.1"}
     ]
   end
 
