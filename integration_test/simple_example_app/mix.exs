@@ -6,6 +6,7 @@ defmodule SimpleExampleApp.MixProject do
       app: :simple_example_app,
       version: "0.1.0",
       elixir: "~> 1.9",
+      test_paths: ["test", "another_test_folder"],
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
