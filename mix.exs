@@ -56,7 +56,7 @@ defmodule Tix.MixProject do
 
   defp lux_integration_test(_) do
     Mix.shell().cmd(
-      ~S(lux -v integration_test/simple_example_app/integration_test.lux integration_test/phoenix_example_app/integration_test.lux integration_test/wallaby_example_app/integration_test.lux)
+      ~S(lux -v integration_test/simple_example_app/integration_test.lux integration_test/simple_example_app/focus_test.lux integration_test/simple_example_app/load_all_test_helpers_test.lux integration_test/phoenix_example_app/integration_test.lux integration_test/wallaby_example_app/integration_test.lux)
     )
   end
 end
