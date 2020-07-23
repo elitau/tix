@@ -8,6 +8,7 @@ defmodule Tix.MixProject do
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      aliases: aliases(),
       name: "tix",
       description: "Automatically run tests in the iex console when files are saved",
       package: package(),
@@ -45,5 +46,17 @@ defmodule Tix.MixProject do
       links: %{"GitHub" => "https://github.com/elitau/tix"},
       files: ~w(LICENCE README.md lib mix.exs)
     ]
+  end
+
+  defp aliases do
+    [
+      "test.integration": &lux_integration_test/1
+    ]
+  end
+
+  defp lux_integration_test(_) do
+    Mix.shell().cmd(
+      ~S(lux -v integration_test/simple_example_app/integration_test.lux integration_test/phoenix_example_app/integration_test.lux integration_test/wallaby_example_app/integration_test.lux)
+    )
   end
 end
