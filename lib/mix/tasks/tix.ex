@@ -2,7 +2,7 @@ defmodule Mix.Tasks.Tix do
   use Mix.Task
 
   @moduledoc """
-  Tix is TDD tool that runs tests in
+  Tix is a TDD tool that runs tests in
   an iex shell upon save of a file.
 
   This tool should be run in the root of the project directory
