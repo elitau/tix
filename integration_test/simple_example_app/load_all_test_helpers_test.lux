@@ -18,7 +18,6 @@
     !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
     ???Loaded another test helper: another_test_folder/test_helper.exs
     ?Tix is watching your files
-    ?Loaded another test helper: another_test_folder/test_helper.exs
 
 # Cleanup side effects. The cleanup section is always executed,
 # regardless of the script succeeds or fails
