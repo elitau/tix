@@ -23,3 +23,10 @@ erl_crash.dump
 tix-*.tar
 
 /lux_logs/
+
+/integration_test/**/*.log
+/integration_test/**/*.csv
+/integration_test/**/*.html
+/integration_test/**/*.orig
+/integration_test/**/*.tap
+/integration_test/**/latest_run
