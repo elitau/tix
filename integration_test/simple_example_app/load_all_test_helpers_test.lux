@@ -16,6 +16,7 @@
 # Start a tix shell
 [shell tix]
     !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
+    ???Loaded another test helper: another_test_folder/test_helper.exs
     ?Tix is watching your files
     ?Loaded another test helper: another_test_folder/test_helper.exs
 
