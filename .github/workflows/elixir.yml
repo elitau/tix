@@ -12,6 +12,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Install Linux filesystem watcher depdency
+      run: |
+        apt-get update
+        apt-get install -y inotify-tools
     - name: Install Dependencies
       run: |
         mix local.rebar --force
