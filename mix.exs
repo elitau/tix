@@ -34,8 +34,7 @@ defmodule Tix.MixProject do
       # to avoid needing to start and stop the whole application every time.
       {:test_iex, "~> 0.1.0"},
       {:ex_doc, "~> 0.20", only: :dev, runtime: false},
-      # Erlang File System Listener
-      {:fs, "~> 6.1"}
+      {:file_system, "~> 0.2"}
     ]
   end
 

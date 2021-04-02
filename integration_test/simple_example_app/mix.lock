@@ -1,4 +1,5 @@
 %{
+  "file_system": {:hex, :file_system, "0.2.10", "fb082005a9cd1711c05b5248710f8826b02d7d1784e7c3451f9c1231d4fc162d", [:mix], [], "hexpm", "41195edbfb562a593726eda3b3e8b103a309b733ad25f3d642ba49696bf715dc"},
   "fs": {:hex, :fs, "6.1.1", "9d147b944d60cfa48a349f12d06c8ee71128f610c90870bdf9a6773206452ed0", [:rebar3], [], "hexpm", "ef94e95ffe79916860649fed80ac62b04c322b0bb70f5128144c026b4d171f8b"},
   "test_iex": {:hex, :test_iex, "0.1.0", "37a0c0ac9c7a9d3d29195923722f3f8690513fe9c78d24b62f78e4960c5cc3f1", [:mix], [], "hexpm", "84c3e469170b1a5c7d79d1a1cadfba0bbb39aa3f7f851ef6a3d592c139aa56ba"},
 }
