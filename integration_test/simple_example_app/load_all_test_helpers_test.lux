@@ -16,7 +16,11 @@
 # Start a tix shell
 [shell tix]
     !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
-    ???Loaded another test helper: another_test_folder/test_helper.exs
+    # The following lines are in different order on mac and linux
+    # ?+Regexp
+    # Like ?Regexp, but has no immediate effect. It is used when the order of the output is undeterministic.
+    # Docs: https://github.com/hawk/lux/blob/master/doc/lux.md#interacting-with-a-shell
+    ?+Loaded another test helper: another_test_folder/test_helper.exs
     ?Tix is watching your files
 
 # Cleanup side effects. The cleanup section is always executed,
