@@ -32,7 +32,7 @@ defmodule Tix.MixProject do
     [
       # This module lets execute specific tests from within a running iex shell
       # to avoid needing to start and stop the whole application every time.
-      {:test_iex, "~> 0.1.0"},
+      {:test_iex, "~> 0.1.1"},
       {:ex_doc, "~> 0.20", only: :dev, runtime: false},
       {:file_system, "~> 0.2"}
     ]
