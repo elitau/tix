@@ -1,19 +1,30 @@
-use Mix.Config
+import Config
 
 # Configure your database
+#
+# The MIX_TEST_PARTITION environment variable can be used
+# to provide built-in test partitioning in CI environment.
+# Run `mix help test` for more information.
 config :phoenix_example_app, PhoenixExampleApp.Repo,
-  username: System.get_env("POSTGRES_USER") || System.get_env("USER") || "postgres",
-  password: System.get_env("POSTGRES_PASSWORD") || "postgres",
-  database: System.get_env("POSTGRES_DB") || "postgres",
-  hostname: System.get_env("POSTGRES_HOST") || "localhost",
-  port: System.get_env("POSTGRES_PORT") || "5432",
-  pool: Ecto.Adapters.SQL.Sandbox
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "phoenix_example_app_test#{System.get_env("MIX_TEST_PARTITION")}",
+  pool: Ecto.Adapters.SQL.Sandbox,
+  pool_size: 10
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :phoenix_example_app, PhoenixExampleAppWeb.Endpoint,
-  http: [port: Enum.random(4000..4999)],
+  http: [ip: {127, 0, 0, 1}, port: 4002],
+  secret_key_base: "gvgnxadBv5l2NYvjHxymfy0OpXR/1/oa5HL21JOjVRB+uSymekzZwdFcR0CZRzTh",
   server: false
+
+# In test we don't send emails.
+config :phoenix_example_app, PhoenixExampleApp.Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Initialize plugs at runtime for faster test compilation
+config :phoenix, :plug_init_mode, :runtime
