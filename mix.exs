@@ -49,7 +49,8 @@ defmodule Tix.MixProject do
 
   defp aliases do
     [
-      "test.integration": &lux_integration_test/1
+      "test.integration": &lux_integration_test/1,
+      "test.prepare_integration_tests": &prepare_integration_tests/1
     ]
   end
 
@@ -57,5 +58,21 @@ defmodule Tix.MixProject do
     Mix.shell().cmd(
       ~S(lux -v integration_test/simple_example_app/integration_test.lux integration_test/simple_example_app/focus_test.lux integration_test/simple_example_app/load_all_test_helpers_test.lux integration_test/phoenix_example_app/integration_test.lux integration_test/wallaby_example_app/integration_test.lux)
     )
+  end
+
+  defp prepare_integration_tests(_) do
+    with {:ok, dirs} <- File.ls("integration_test") do
+      for dir <- dirs do
+        path = Path.join("integration_test", dir)
+
+        Mix.shell().cmd(
+          ~s(cd #{path} && MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile)
+        )
+      end
+    end
+
+    # Mix.shell().cmd(
+    #   ~S(cd integration_test/phoenix_example_app && MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile)
+    # )
   end
 end
