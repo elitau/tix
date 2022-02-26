@@ -63,11 +63,29 @@ be found at [https://hexdocs.pm/tix](https://hexdocs.pm/tix).
 
 ## (Planned) features
 
-* Usage like https://github.com/nccgroup/sobelow, eg. `mix tix`
+* Usage like <https://github.com/nccgroup/sobelow>, eg. `mix tix`
 * Run all tests
 * Set debug breakpoints from within vs-code
 * Run only one explicit test on file save (pin test) ✅
 
 ## Development
 
-Run tests with lux. See integration_test folder.
+### Integration tests
+
+Install lux to execute integration tests:
+
+```bash
+brew tap hawk/homebrew-hawk
+brew install hawk/homebrew-hawk/lux
+```
+
+Run integration tests with `mix test.integration`
+
+See integration_test folder for test cases.
+
+Known problems:
+When running integration tests, the first run(s) may break with the false error because the dependecies must be installed first.
+
+### Unit tests
+
+Unit tests are in the usual /test folder.
