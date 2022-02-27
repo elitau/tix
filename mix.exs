@@ -56,7 +56,7 @@ defmodule Tix.MixProject do
 
   defp lux_integration_test(_) do
     Mix.shell().cmd(
-      ~S(lux -v integration_test/simple_example_app/integration_test.lux integration_test/simple_example_app/focus_test.lux integration_test/simple_example_app/load_all_test_helpers_test.lux integration_test/plain_phoenix.lux integration_test/wallaby_example_app/integration_test.lux)
+      ~S(lux -v integration_test/simple_example_app/integration_test.lux integration_test/simple_example_app/focus_test.lux integration_test/simple_example_app/load_all_test_helpers_test.lux integration_test/plain_phoenix.lux integration_test/wallaby.lux)
     )
   end
 
@@ -65,9 +65,13 @@ defmodule Tix.MixProject do
       for dir <- dirs do
         path = Path.join("integration_test", dir)
 
-        Mix.shell().cmd(
-          ~s(cd #{path} && MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile)
-        )
+        if path |> Path.expand() |> File.dir?() do
+          IO.inspect(path)
+
+          Mix.shell().cmd(
+            ~s(cd #{path} && MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile)
+          )
+        end
       end
     end
 

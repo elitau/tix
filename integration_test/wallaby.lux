@@ -8,34 +8,36 @@
 ## install by compiling it
 
 # Run the test
-## Execute the test with `lux plain_phoenix.lux`
+## Execute the test with `lux integration_test.lux`
 
 # Recreate phoenix example app with newer version
-## rm -rf phoenix_example_app
-## mix archive.install hex phx_new 1.6.6 --force
-## mix phx.new phoenix_example_app --install
-## cd phoenix_example_app
-## mix phx.gen.html Comments Comment comments title:string body:string
-## Add `resources("/comments", CommentController)` to routes.ex
+## rm -rf wallaby_example_app
+## mix archive.install hex phx_new 1.6.6 --force && mix phx.new wallaby_example_app --install
+## cd wallaby_example_app
 ## Add `{:tix, path: "../../", only: :test, runtime: false}` to mix.exs
+## Add `{:wallaby, "~> 0.29", [runtime: false, only: :test]}` to mix.exs
+## echo "config :wallaby, otp_app: :wallaby_example_app" >> wallaby_example_app/config/test.exs
+## echo "config :wallaby_example_app, WallabyExampleAppWeb.Endpoint, server: true" >> wallaby_example_app/config/test.exs
+## echo "{:ok, _} = Application.ensure_all_started(:wallaby)" >> wallaby_example_app/test/test_helper.ex
+## cp wallaby_browser_test.exs wallaby_example_app/test/wallaby_browser_test.exs
 
 #### Phoenix Project ####
 [shell tix]
-    !cd phoenix_example_app
+    !cd wallaby_example_app
     !MIX_ENV=test iex -S mix do deps.get, deps.compile tix, tix
     ?Tix is watching your files
 
 [shell editor]
-    !cd phoenix_example_app
+    !cd wallaby_example_app
     # Simulate a file save
-    !touch test/phoenix_example_app_web/controllers/page_controller_test.exs
+    !touch test/wallaby_browser_test.exs
     # Assure that were back to shell prompt
     ?SH-PROMPT:
 
 [shell tix]
     # Assert that the test was executed
     ?Executing
-    ?page_controller_test.exs
+    ?wallaby_browser_test.exs
 
 # Cleanup side effects. The cleanup section is always executed,
 # regardless of the script succeeds or fails
