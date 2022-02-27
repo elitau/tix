@@ -56,18 +56,9 @@ jobs:
           apt-get update
           apt-get install -y inotify-tools
       - name: Get and compile dependencies of test projects to circumvent timeout errors during test execution
-        run: |
-          cd integration_test/simple_example_app
-          MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
-          cd ../..
-          cd integration_test/phoenix_example_app
-          MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
-          cd ../..
-          cd integration_test/wallaby_example_app
-          MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
-          cd ../..
+        run: mix test.prepare_integration_tests
       - name: Run Tests
-        run: lux/bin/lux -v integration_test/simple_example_app/integration_test.lux integration_test/simple_example_app/focus_test.lux integration_test/simple_example_app/load_all_test_helpers_test.lux integration_test/phoenix_example_app/integration_test.lux integration_test/wallaby_example_app/integration_test.lux
+        run: lux/bin/lux -v integration_test/simple_example_app/integration_test.lux integration_test/simple_example_app/focus_test.lux integration_test/simple_example_app/load_all_test_helpers_test.lux integration_test/plain_phoenix.lux integration_test/wallaby.lux
         env:
           # use postgres for the host here because we have specified a container for the job.
           # If we were running the job on the VM this would be localhost
