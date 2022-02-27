@@ -4,7 +4,6 @@ on: push
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     container:
@@ -18,62 +17,62 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
         ports:
-        - 5432:5432
+          - 5432:5432
         # needed because the postgres container does not provide a healthcheck
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Install Lux Testing Tool
-      run: |
-        git clone https://github.com/hawk/lux.git
-        cd lux
-        autoconf
-        ./configure
-        make
-        cd ..
-    - name: Install Chromedriver
-      run: |
-        echo "##### Add Google Chrome's repo to sources..."
-        echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list
-        # Install Google's public key used for signing packages (e.g. Chrome)
-        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-        # Update apt sources
-        apt-get update
-        echo "##### Installing Headless Chrome dependencies..."
-        apt-get install -y libxpm4 libxrender1 libgtk2.0-0 libnss3 libgconf-2-4
-        apt-get install -y google-chrome-stable
-        apt-get install -y xvfb gtk2-engines-pixbuf
-        apt-get install -y xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
-        apt-get install -y imagemagick x11-apps
+      - uses: actions/checkout@v1
+      - name: Install Lux Testing Tool
+        run: |
+          git clone https://github.com/hawk/lux.git
+          cd lux
+          autoconf
+          ./configure
+          make
+          cd ..
+      - name: Install Chromedriver
+        run: |
+          echo "##### Add Google Chrome's repo to sources..."
+          echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | tee -a /etc/apt/sources.list
+          # Install Google's public key used for signing packages (e.g. Chrome)
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+          # Update apt sources
+          apt-get update
+          echo "##### Installing Headless Chrome dependencies..."
+          apt-get install -y libxpm4 libxrender1 libgtk2.0-0 libnss3 libgconf-2-4
+          apt-get install -y google-chrome-stable
+          apt-get install -y xvfb gtk2-engines-pixbuf
+          apt-get install -y xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
+          apt-get install -y imagemagick x11-apps
 
-        echo "##### Downloading latest ChromeDriver..."
-        LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-        wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
-        echo "##### Extracting and symlinking chromedriver to PATH so it's available globally"
-        unzip chromedriver_linux64.zip && ln -s $PWD/chromedriver /usr/local/bin/chromedriver
-    - name: Install Linux filesystem watcher depdency
-      run: |
-        apt-get update
-        apt-get install -y inotify-tools
-    - name: Get and compile dependencies of test projects to circumvent timeout errors during test execution
-      run: |
-        cd integration_test/simple_example_app
-        MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
-        cd ../..
-        cd integration_test/phoenix_example_app
-        MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
-        cd ../..
-        cd integration_test/wallaby_example_app
-        MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
-        cd ../..
-    - name: Run Tests
-      run: lux/bin/lux -v integration_test/simple_example_app/integration_test.lux integration_test/simple_example_app/focus_test.lux integration_test/simple_example_app/load_all_test_helpers_test.lux integration_test/phoenix_example_app/integration_test.lux integration_test/wallaby_example_app/integration_test.lux
-      env:
-        # use postgres for the host here because we have specified a container for the job.
-        # If we were running the job on the VM this would be localhost
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: postgres
-        POSTGRES_HOST: postgres
-        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+          echo "##### Downloading latest ChromeDriver..."
+          LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+          echo "##### Extracting and symlinking chromedriver to PATH so it's available globally"
+          unzip chromedriver_linux64.zip && ln -s $PWD/chromedriver /usr/local/bin/chromedriver
+      - name: Install Linux filesystem watcher depdency
+        run: |
+          apt-get update
+          apt-get install -y inotify-tools
+      - name: Get and compile dependencies of test projects to circumvent timeout errors during test execution
+        run: |
+          cd integration_test/simple_example_app
+          MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
+          cd ../..
+          cd integration_test/phoenix_example_app
+          MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
+          cd ../..
+          cd integration_test/wallaby_example_app
+          MIX_ENV=test mix do local.hex --force, local.rebar --force, deps.get, compile
+          cd ../..
+      - name: Run Tests
+        run: lux/bin/lux -v integration_test/simple_example_app/integration_test.lux integration_test/simple_example_app/focus_test.lux integration_test/simple_example_app/load_all_test_helpers_test.lux integration_test/phoenix_example_app/integration_test.lux integration_test/wallaby_example_app/integration_test.lux
+        env:
+          # use postgres for the host here because we have specified a container for the job.
+          # If we were running the job on the VM this would be localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
