@@ -15,7 +15,7 @@
 
 # Start a tix shell
 [shell tix]
-    !MIX_ENV=test iex -S mix do local.hex --force, local.rebar --force, deps.get, deps.compile tix, tix
+    !MIX_ENV=test iex -S mix do deps.compile tix, tix
     # The following lines are in different order on mac and linux
     # ?+Regexp
     # Like ?Regexp, but has no immediate effect. It is used when the order of the output is undeterministic.
